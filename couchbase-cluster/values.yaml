@@ -7,7 +7,7 @@ couchbaseCluster:
   # create flag to deploy couchbase cluster
   create: true
   # name of the cluster. defaults to name of chart release
-  name: ""
+  name: "couchbase-cluster"
   # username of the cluster admin.
   username: "Administrator"
   # password of the cluster admin.
@@ -45,15 +45,15 @@ couchbaseCluster:
   # domain:  example.domain.com
   # Indicates which underlying cloud platform the Kubernetes cluster is running.
   # The Value must be one of aws, gce or azure
-  platform:
+  platform: aws
   # Cluster wide settings for nodes and services
   cluster:
     # The amount of memory that should be allocated to the data service
-    dataServiceMemoryQuota: 256
+    dataServiceMemoryQuota: 26000 # accomodates up-to 6 buckets across all the environments
     # The amount of memory that should be allocated to the index service
     indexServiceMemoryQuota: 256
     # The amount of memory that should be allocated to the search service
-    searchServiceMemoryQuota: 256
+    searchServiceMemoryQuota: 1024
     # The amount of memory that should be allocated to the eventing service
     eventingServiceMemoryQuota: 256
     # The amount of memory that should be allocated to the analytics service
@@ -80,9 +80,9 @@ couchbaseCluster:
       # The type of bucket to use
       type: couchbase
       # The amount of memory that should be allocated to the bucket
-      memoryQuota: 128
+      memoryQuota: 256
       # The number of bucket replicates
-      replicas: 1
+      replicas: 3
       # The priority when compared to other buckets
       ioPriority: high
       # The bucket eviction policy which determines behavior during expire and high mem usage
@@ -99,15 +99,13 @@ couchbaseCluster:
     # Name for the server configuration. It must be unique.
     all_services:
       # Size of the couchbase cluster.
-      size: 3
+      size: 8
       # The services to run on nodes
       services:
         - data
         - index
         - query
         - search
-        - eventing
-        - analytics
       # ServerGroups define the set of availability zones we want to distribute pods over.
       serverGroups: []
       # Pod defines the policy to create pod for the couchbase pod.

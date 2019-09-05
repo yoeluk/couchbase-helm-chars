@@ -9,9 +9,9 @@ rbac:
   # grant cluster-wide access to service accounts
   clusterRoleAccess: true
   # name of couchbase service account
-  couchbaseServiceAccountName:
+  couchbaseServiceAccountName: couchbase-service-account
   # name of admission service account
-  admissionServiceAccountName:
+  admissionServiceAccountName: cb-admission-service-account
 
 
 # Select what to deploy
@@ -52,8 +52,8 @@ couchbaseOperator:
   # resources of couchbase-operator
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 250m
+      memory: 1024Mi
   # nodeSelector for couchbase-operator pod assignment
   # Ref: https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector: {}
